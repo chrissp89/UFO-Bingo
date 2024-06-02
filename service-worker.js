@@ -6,8 +6,11 @@ self.addEventListener('install', (event) => {
         '/index.html',
         '/styles.css',
         '/app.js',
+        '/manifest.json',
         '/icon-192x192.png',
-        '/icon-512x512.png'
+        '/icon-512x512.png',
+        '/score-sound.mp3', // Add sound assets
+        '/reset-sound.mp3'  // Add sound assets
       ]);
     })
   );

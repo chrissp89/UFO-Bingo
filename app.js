@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const scoreList = document.getElementById('score-list');
     const categoryList = document.getElementById('category-list');
+    const leaderboardList = document.getElementById('leaderboard-list');
     const resetButton = document.getElementById('reset-button');
 
     categories.forEach(category => {
@@ -41,23 +42,80 @@ document.addEventListener('DOMContentLoaded', () => {
         li.textContent = `${category.name} (${category.points} poäng)`;
         li.addEventListener('click', () => {
             const scoreItem = document.createElement('li');
+            scoreItem.classList.add('score-update');
             scoreItem.textContent = `${category.name} - ${category.points} poäng`;
             scoreList.appendChild(scoreItem);
+            // Add sound effect for score update
+            playSound('score');
+            // Animate score update
+            gsap.fromTo(scoreItem, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5 });
+            // Update leaderboard
+            updateLeaderboard('Player1', category.points);
         });
         categoryList.appendChild(li);
     });
 
     resetButton.addEventListener('click', () => {
         scoreList.innerHTML = '';
+        // Add sound effect for reset button
+        playSound('reset');
     });
-});
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').then((registration) => {
-      console.log('Service Worker registered with scope:', registration.scope);
-    }, (err) => {
-      console.log('Service Worker registration failed:', err);
-    });
-  });
-}
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_AUTH_DOMAIN",
+        databaseURL: "YOUR_DATABASE_URL",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_STORAGE_BUCKET",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Save score
+    function saveScore(player, score) {
+        firebase.database().ref('leaderboard/' + player).set({
+            score: score
+        });
+    }
+
+    // Retrieve scores
+    function getScores() {
+        firebase.database().ref('leaderboard').on('value', (snapshot) => {
+            const scores = snapshot.val();
+            updateLeaderboardUI(scores);
+        });
+    }
+
+    // Update leaderboard UI
+    function updateLeaderboardUI(scores) {
+        leaderboardList.innerHTML = '';
+        for (let player in scores) {
+            const li = document.createElement('li');
+            li.textContent = `${player}: ${scores[player].score}`;
+            leaderboardList.appendChild(li);
+        }
+    }
+
+    // Initial load of scores
+    getScores();
+
+    // Share score
+    window.shareScore = function() {
+        const url = 'https://chrissp89.github.io/UFO-Bingo';
+        const text = `Check out my score on UFO-Bingo!`;
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`);
+    };
+
+    // Function to play sound effects
+    function playSound(type) {
+        const audio = new Audio();
+        if (type === 'score') {
+            audio.src = 'score-sound.mp3';
+        } else if (type === 'reset') {
+            audio.src = 'reset-sound.mp3';
+        }
+        audio.play();
+    }
+});

@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Observation Game</title>
+    <title>UFO-Bingo</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
 </head>
 <body>
     <div id="app">
         <header>
-            <h1>Observation Game</h1>
+            <h1>UFO-Bingo</h1>
         </header>
         <main>
             <section id="scoreboard">
@@ -21,9 +22,14 @@
                 <ul id="category-list"></ul>
             </section>
             <button id="reset-button">Återställ</button>
+            <section id="leaderboard">
+                <h2>Leaderboard</h2>
+                <ul id="leaderboard-list"></ul>
+            </section>
+            <button onclick="shareScore()">Dela Poäng</button>
         </main>
         <footer>
-            <p>Skapat av [Ditt Namn]</p>
+            <p>Skapat av [Coco & Christer]</p>
         </footer>
     </div>
     <script src="app.js"></script>
