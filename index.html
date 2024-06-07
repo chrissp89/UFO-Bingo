@@ -22,30 +22,46 @@
 </head>
 <body>
     <div class="container">
-        <div class="title-container">
-            <h1 class="game-title bold">UFO</h1>
-            <h1 class="game-title bold">BINGO!</h1>
-            <h1 class="game-title outline">UFO</h1>
-            <h1 class="game-title outline">BINGO!</h1>
+        <!-- Home Screen -->
+        <div id="home-screen">
+            <div class="title-container">
+                <h1 class="game-title bold">UFO</h1>
+                <h1 class="game-title bold">BINGO!</h1>
+                <h1 class="game-title outline">UFO</h1>
+                <h1 class="game-title outline">BINGO!</h1>
+            </div>
+            <div class="settings-icon">
+                <button class="icon-button">
+                    <img src="icons/settings.svg" alt="Settings Icon" width="24" height="24">
+                </button>
+            </div>
+            <div class="menu">
+                <a href="#" class="primary-button" onclick="showPlayerSetup('single')">
+                    <div class="arrow">ENSKILT SPEL</div>
+                    <img src="icons/chevron-right.svg" class="btn-arrow" alt="Arrow Icon">
+                </a>
+                <a href="#" class="primary-button" onclick="showPlayerSetup('multi')">
+                    <div class="arrow">SKAPA LAG</div>
+                    <img src="icons/chevron-right.svg" class="btn-arrow" alt="Arrow Icon">
+                </a>
+            </div>
         </div>
-        <div class="settings-icon">⚙️</div>
-        <div class="menu">
-            <a href="#" class="primary-button">
-                <div class="arrow">STARTA NYTT SPEL</div>
-                <img src="icons/chevron-right.svg" class="btn-arrow" alt="Arrow Icon">
-            </a>
-            <a href="#" class="primary-button">
-                <div class="arrow">SKAPA LAG</div>
-                <img src="icons/chevron-right.svg" class="btn-arrow" alt="Arrow Icon">
-            </a>
-            <a href="#" class="primary-button">
-                <div class="arrow">ENSKILT SPEL</div>
-                <img src="icons/chevron-right.svg" class="btn-arrow" alt="Arrow Icon">
-            </a>
-            <a href="#" class="primary-button">
-                <div class="arrow">LEADERBOARDS</div>
-                <img src="icons/chevron-right.svg" class="btn-arrow" alt="Arrow Icon">
-            </a>
+        <!-- Player Setup Screen -->
+        <div id="player-setup-screen" style="display: none;">
+            <h2 id="setup-title">Ange Spelarnamn</h2>
+            <div id="player-inputs"></div>
+            <button class="primary-button" onclick="startGame()">Starta Spelet</button>
+            <button class="primary-button" onclick="goHome()">Tillbaka</button>
+        </div>
+        <!-- Game Screen -->
+        <div id="game-screen" style="display: none;">
+            <div class="game-title-container">
+                <h2>Välj Kategori</h2>
+            </div>
+            <ul id="category-list" class="category-list"></ul>
+            <div id="scores-container"></div>
+            <button id="reset-button" class="primary-button" onclick="resetScores()">Återställ Poäng</button>
+            <button class="primary-button" onclick="goHome()">Tillbaka</button>
         </div>
     </div>
     <script src="app.js"></script>

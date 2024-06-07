@@ -113,3 +113,57 @@ body {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+#game-screen, #player-setup-screen {
+    text-align: center;
+}
+
+.category-list {
+    list-style: none;
+    padding: 0;
+}
+
+.category-list li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #FFFBC5;
+    border: 2px solid #000;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.category-list li:hover {
+    background-color: #FFF299;
+}
+
+.scores-container {
+    margin-top: 20px;
+}
+
+.scores-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.scores-container li {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #D6FAFF;
+    border: 2px solid #000;
+    border-radius: 10px;
+}
+
+#reset-button {
+    margin-top: 20px;
+}
+
+#player-inputs input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: #FFFBC5;
+}

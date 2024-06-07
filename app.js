@@ -32,32 +32,101 @@ document.addEventListener('DOMContentLoaded', () => {
       { name: 'Tegelätare', points: 1 }
   ];
 
-  const scoreList = document.getElementById('score-list');
   const categoryList = document.getElementById('category-list');
-  const resetButton = document.getElementById('reset-button');
+  const scoresContainer = document.getElementById('scores-container');
+  const playerInputs = document.getElementById('player-inputs');
+  const setupTitle = document.getElementById('setup-title');
+  let players = [];
+  let scores = [];
 
   categories.forEach(category => {
       const li = document.createElement('li');
       li.textContent = `${category.name} (${category.points} poäng)`;
       li.addEventListener('click', () => {
-          const scoreItem = document.createElement('li');
-          scoreItem.textContent = `${category.name} - ${category.points} poäng`;
-          scoreList.appendChild(scoreItem);
+          players.forEach((player, index) => {
+              const scoreItem = document.createElement('li');
+              scoreItem.textContent = `${player.name}: ${category.name} - ${category.points} poäng`;
+              document.getElementById(`score-list-${index}`).appendChild(scoreItem);
+              player.score += category.points;
+              document.getElementById(`score-${index}`).textContent = `Poäng: ${player.score}`;
+          });
       });
       categoryList.appendChild(li);
   });
 
-  resetButton.addEventListener('click', () => {
-      scoreList.innerHTML = '';
-  });
+  window.showPlayerSetup = (mode) => {
+      document.getElementById('home-screen').style.display = 'none';
+      document.getElementById('player-setup-screen').style.display = 'block';
+      playerInputs.innerHTML = '';
+      players = [];
+      if (mode === 'single') {
+          setupTitle.textContent = 'Ange Spelarnamn';
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.placeholder = 'Spelarnamn';
+          input.id = 'player-0';
+          playerInputs.appendChild(input);
+      } else {
+          setupTitle.textContent = 'Ange Spelarnamn för varje spelare';
+          for (let i = 0; i < 2; i++) {
+              const input = document.createElement('input');
+              input.type = 'text';
+              input.placeholder = `Spelare ${i + 1} Namn`;
+              input.id = `player-${i}`;
+              playerInputs.appendChild(input);
+          }
+      }
+  };
+
+  window.startGame = () => {
+      const playerInputsElements = document.querySelectorAll('#player-inputs input');
+      playerInputsElements.forEach(input => {
+          const playerName = input.value.trim();
+          if (playerName) {
+              players.push({ name: playerName, score: 0 });
+          }
+      });
+      if (players.length === 0) {
+          alert('Ange minst ett spelarnamn!');
+          return;
+      }
+
+      document.getElementById('player-setup-screen').style.display = 'none';
+      document.getElementById('game-screen').style.display = 'block';
+      scoresContainer.innerHTML = '';
+      players.forEach((player, index) => {
+          const scoreContainer = document.createElement('div');
+          scoreContainer.classList.add('score-container');
+          scoreContainer.innerHTML = `
+              <h3>${player.name}</h3>
+              <ul id="score-list-${index}"></ul>
+              <div id="score-${index}">Poäng: ${player.score}</div>
+          `;
+          scoresContainer.appendChild(scoreContainer);
+      });
+  };
+
+  window.resetScores = () => {
+      players.forEach((player, index) => {
+          player.score = 0;
+          document.getElementById(`score-list-${index}`).innerHTML = '';
+          document.getElementById(`score-${index}`).textContent = `Poäng: ${player.score}`;
+      });
+  };
+
+  window.goHome = () => {
+      document.getElementById('home-screen').style.display = 'block';
+      document.getElementById('player-setup-screen').style.display = 'none';
+      document.getElementById('game-screen').style.display = 'none';
+  };
 });
 
 if ('serviceWorker' in navigator) {
-window.addEventListener('load', () => {
-  navigator.serviceWorker.register('/service-worker.js').then((registration) => {
-    console.log('Service Worker registered with scope:', registration.scope);
-  }, (err) => {
-    console.log('Service Worker registration failed:', err);
-  });
-});
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }, (err) => {
+            console.log('Service Worker registration failed:', err);
+        });
+    });
 }
