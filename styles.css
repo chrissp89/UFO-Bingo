@@ -24,6 +24,7 @@ body {
     text-align: center;
     animation: fadeIn 1s ease-in-out;
     position: relative;
+    transition: all 0.3s ease-in-out;
 }
 
 .title-container {
@@ -79,7 +80,9 @@ body {
     margin: 10px 0;
 }
 
-.primary-button:hover {
+.primary-button:focus, .primary-button:hover {
+    background-color: #64E69D; /* Slightly darker green */
+    outline: none; /* Remove default focus outline */
     margin-top: 8px;
     margin-left: 3px;
     box-shadow: 0px 0px 0 0 #031926;
