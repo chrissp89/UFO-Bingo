@@ -1,0 +1,8 @@
+{
+    "javascript.inlayHints.enumMemberValues.enabled": false,
+    "github.codespaces.defaultExtensions": [
+        
+        "GitHub.codespaces",
+        "GitHub.vscode-pull-request-github"
+    ]
+}
