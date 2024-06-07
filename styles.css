@@ -1,19 +1,15 @@
 @font-face {
-    font-family: 'Blackout 2 AM';
-    font-style: normal;
-    font-weight: normal;
-    src: url('fonts/Blackout2AM.ttf') format('truetype');
+    font-family: 'SAPuffyPop-Bold';
+    src: url('fonts/SAPuffyPop-Bold.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'Mupen Regular';
-    font-style: normal;
-    font-weight: normal;
-    src: url('fonts/Mupen-JpmWa.woff') format('woff');
+    font-family: 'SAPuffyPop-Outline';
+    src: url('fonts/SAPuffyPop-Outline.woff') format('woff');
 }
 
 body {
-    font-family: 'Mupen Regular', sans-serif;
+    font-family: 'Public Sans', sans-serif;
     background-color: #FFFEEE; /* Body background color */
     margin: 0;
     display: flex;
@@ -28,61 +24,59 @@ body {
     text-align: center;
     animation: fadeIn 1s ease-in-out;
     position: relative;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
 .title-container {
     position: relative;
-    margin-bottom: 20px;
+    display: inline-block;
+    margin-bottom: 40px; /* Adjusted for spacing */
 }
 
 .game-title {
-    font-family: 'Blackout 2 AM', sans-serif;
+    font-size: 48px;
     margin: 0;
     position: absolute;
-    width: 100%;
-    left: 0;
-    text-align: center;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
 }
 
 .bold {
-    font-weight: bold;
-    top: 0;
-    color: #000; /* Black color */
+    font-family: 'SAPuffyPop-Bold';
+    color: #FF8ACD; /* Primary color from the palette */
+    z-index: 1;
 }
 
 .outline {
-    -webkit-text-stroke: 1px #000; /* Black outline */
+    font-family: 'SAPuffyPop-Outline';
     color: transparent;
-    top: 0;
-}
-
-.settings-icon {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    -webkit-text-stroke: 2px black; /* Black outline */
+    z-index: 0;
 }
 
 .menu {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-top: 150px;
+    align-items: center;
 }
 
 .primary-button {
-    background-color: #6e61ff;
+    background-color: #76F7AE; /* Decorative Green */
     text-decoration: none;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Public Sans', sans-serif;
     font-weight: 700;
-    color: #fff;
+    color: #000; /* Text color */
     padding: 12px 24px;
     border: 2px solid #000;
     border-radius: 30px;
     box-shadow: 3px 3px 0 0 #031926;
     font-size: 18px;
     transition: .2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
 }
 
 .primary-button:hover {
@@ -94,8 +88,28 @@ body {
 
 .arrow {
     display: inline-block;
+    margin-right: 10px;
 }
 
 .btn-arrow {
     transform: translateY(7px);
+}
+
+.settings-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #A9A9A9;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.settings-icon:hover {
+    color: #696969;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
